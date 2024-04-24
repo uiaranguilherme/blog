@@ -1,14 +1,10 @@
 import { IValidation, ISchema, FunctionValidation } from "../interface/ivalidation"
 import required from "./validations-functions/required"
 import cpf from "./validations-functions/cpf"
-import cnpj from "./validations-functions/cnpj"
 import string from "./validations-functions/string"
-import ie from "./validations-functions/ie"
 import password from "./validations-functions/password"
 import email from "./validations-functions/email"
-import ip from "./validations-functions/ip"
 import array from "./validations-functions/array"
-import state from "./validations-functions/state"
 
 export const Schema = <T>(Schema: ISchema & T) => {
   return {
@@ -59,4 +55,4 @@ export const Schema = <T>(Schema: ISchema & T) => {
   }
 }
 
-export { required, cpf, cnpj, string, ie, password, email, ip, array, state }
+export { required, cpf, string, password, email, array }

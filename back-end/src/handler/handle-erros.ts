@@ -1,12 +1,7 @@
-import { BUSSINES_EXCEPTION, CONFLICT_EXCEPTION, IDENTITY_EXCEPTION, SERVER_EXCEPTION, UNAUTHORIZED_EXCEPTION } from "../constants/exceptions-name"
-import {
-  STATUS_BAD_REQUEST,
-  STATUS_CONFLICT,
-  STATUS_INTERNAL_SERVER_ERROR,
-  STATUS_NOT_CONTENT,
-  STATUS_OK,
-  STATUS_UNAUTHORIZED,
-} from "../constants/reply-status"
+/** @format */
+
+import { BUSSINES_EXCEPTION, CONFLICT_EXCEPTION, IDENTITY_EXCEPTION, SERVER_EXCEPTION } from "../constants"
+import { STATUS_BAD_REQUEST, STATUS_CONFLICT, STATUS_INTERNAL_SERVER_ERROR, STATUS_NOT_CONTENT, STATUS_OK } from "../constants"
 import IErrorCustom from "./interfaces/ierror-custom"
 
 export class ErrorCustom implements IErrorCustom {
@@ -37,7 +32,10 @@ export class ConflictError implements IErrorCustom {
   message: string
 
   constructor(_message: any) {
-    this.message = JSON.stringify(_message)
+    if (typeof _message === "object" || Array.isArray(_message)) {
+      this.message = JSON.stringify(_message)
+    }
+    this.message = _message
   }
 }
 export class ServerError implements IErrorCustom {
@@ -54,17 +52,6 @@ export class ServerError implements IErrorCustom {
 export class IpConfirmation implements IErrorCustom {
   readonly code = STATUS_NOT_CONTENT
   readonly name = IDENTITY_EXCEPTION
-  _stack: string
-  message: string
-
-  constructor(_message: any) {
-    this.message = JSON.stringify(_message)
-  }
-}
-
-export class Unauthorized implements IErrorCustom {
-  readonly code = STATUS_UNAUTHORIZED
-  readonly name = UNAUTHORIZED_EXCEPTION
   _stack: string
   message: string
 

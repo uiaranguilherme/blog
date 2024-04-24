@@ -1,29 +1,16 @@
+/** @format */
+
 import { Request } from "express"
-import IErrorCustom from "../../handler/interfaces/ierror-custom"
-import { Response } from "../../handler/interfaces/iresponse"
+import IErrorCustom from "src/handler/interfaces/ierror-custom"
 
 export interface IResponse<V> {
   isSuccess: boolean
-  value?: V
-  error?: IErrorCustom
+  value: V | undefined
+  error: IErrorCustom | undefined
 }
-
-export interface CallbackError {
-  <E>(error: E & IErrorCustom): E & IErrorCustom
-}
-
-export interface CallbackIsFunction {
-  (nameError: string, callback: CallbackError): void
-}
-
-export interface CallbackException {
-  (is: CallbackIsFunction): void
-}
-
-export interface CallbackSuccess {
-  (value: any): any
-}
-
-export interface CallbackController {
-  (req: Request): Promise<Response | void>
-}
+export type CallbackSend = (value: IResponse<any>) => void
+export type CallbackError = (error: IErrorCustom) => void
+export type CallbackIsFunction = (name: string, callback: CallbackError) => IErrorCustom | void
+export type CallbackException = (is: CallbackIsFunction) => void
+export type CallbackSuccess = (value: any) => any
+export type CallbackController = (req: Request, send: CallbackSend) => Promise<IResponse<any> | void>

@@ -9,6 +9,7 @@ const CreateSchema = (schema: IDefinitions) => schema
 const CreateRouteDocumentation = (doc: ISwaggerDoc) => {
   if (doc !== undefined) {
     const { tags, description, produces, parameters, responses, path, type, definitions, consumes, body } = doc
+
     var root = PATH.join(__dirname, "..", "..", "swagger-output.json")
 
     var data = FS.readFileSync(root, "utf-8")
