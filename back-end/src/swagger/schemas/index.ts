@@ -1,4 +1,5 @@
 import SchemaError from "./error"
-import SchemaReqCreateAboutMe from "./req-create-about-me"
+import SchemaAboutMe from "./about-me"
+import SchemaProject from "./project"
 
-export { SchemaError, SchemaReqCreateAboutMe }
+export { SchemaError, SchemaAboutMe, SchemaProject }

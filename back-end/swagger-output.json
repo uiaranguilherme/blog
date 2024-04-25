@@ -14,7 +14,7 @@
   "basePath": "/",
   "tags": [
     {
-      "name": "About-Me"
+      "name": "About-me"
     },
     {
       "name": "Projects"
@@ -34,20 +34,127 @@
     "application/json"
   ],
   "paths": {
+    "/about-me": {
+      "get": {
+        "tags": [
+          "About-me"
+        ],
+        "description": "Get about-me info",
+        "responses": {
+          "200": {
+            "description": "success in get about-me",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/SchemaAboutMe"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "error in get about-me",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/SchemaError"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "error in server",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/SchemaError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
     "/about-me/create-about-me": {
       "post": {
         "tags": [
           "About-me"
         ],
         "description": "Create about-me infos",
-        "responses": [],
+        "responses": {
+          "200": {
+            "description": "success in create about-me"
+          },
+          "400": {
+            "description": "error in craete about-me",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/SchemaError"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "error in server",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/SchemaError"
+                }
+              }
+            }
+          }
+        },
         "requestBody": {
           "content": {
             "application/json": {
               "description": "About-me info",
               "type": "object",
               "schema": {
-                "$ref": "#/components/schemas/SchemaReqCreateAboutMe"
+                "$ref": "#/components/schemas/SchemaAboutMe"
+              }
+            }
+          }
+        }
+      }
+    },
+    "/projects/create-project": {
+      "post": {
+        "tags": [
+          "Projects"
+        ],
+        "description": "This router is create new projects in portifolio",
+        "responses": {
+          "200": {
+            "description": "success in create project"
+          },
+          "400": {
+            "description": "error in create project",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/SchemaError"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "error in server",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/SchemaError"
+                }
+              }
+            }
+          }
+        },
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "description": "Infos the project",
+              "schema": {
+                "$ref": "#/components/schemas/SchemaProject"
               }
             }
           }
@@ -64,7 +171,20 @@
       }
     },
     "schemas": {
-      "SchemaReqCreateAboutMe": {
+      "SchemaError": {
+        "type": "object",
+        "properties": {
+          "code": {
+            "type": "string",
+            "example": "xxx"
+          },
+          "message": {
+            "type": "string",
+            "example": "message"
+          }
+        }
+      },
+      "SchemaAboutMe": {
         "type": "object",
         "properties": {
           "name": {
@@ -82,6 +202,38 @@
           "hometown": {
             "type": "string",
             "example": "Itajai-SC"
+          }
+        }
+      },
+      "SchemaProject": {
+        "type": "object",
+        "properties": {
+          "name": {
+            "type": "string",
+            "example": "Users Tasks"
+          },
+          "description": {
+            "type": "string",
+            "example": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus sollicitudin nunc vel libero volutpat, nec sodales magna dapibus. Nunc suscipit ultricies semper."
+          },
+          "type": {
+            "type": "string",
+            "example": "front-end"
+          },
+          "stacks": {
+            "type": "array",
+            "example": [
+              "Node-JS",
+              "Next-JS"
+            ]
+          },
+          "git": {
+            "type": "string",
+            "example": "https://"
+          },
+          "url": {
+            "type": "string",
+            "example": "https://"
           }
         }
       }

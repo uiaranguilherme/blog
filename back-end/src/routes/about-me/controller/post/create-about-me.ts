@@ -1,6 +1,11 @@
-import { Controller } from "@infra"
+import { Controller, Exception, Success } from "@infra"
 import CreateRouteDocumentation from "@swagger"
-import { SchemaReqCreateAboutMe } from "@swagger-components"
+import { SchemaError, SchemaAboutMe } from "@swagger-components"
+import { IReqCreateAboutMe } from "../../interfaces/icreate-about-me"
+import validateCreateAboutMe from "../../validation/validation-create-about-me"
+import { BussinessError } from "@handler"
+import serviceCreateAboutMe from "../../services/service-create-about-me"
+import { STATUS_BAD_REQUEST, STATUS_INTERNAL_SERVER_ERROR, STATUS_OK } from "@constants"
 
 CreateRouteDocumentation({
   tags: ["About-me"],
@@ -13,15 +18,56 @@ CreateRouteDocumentation({
         description: "About-me info",
         type: "object",
         schema: {
-          $ref: "#/components/schemas/SchemaReqCreateAboutMe",
+          $ref: "#/components/schemas/SchemaAboutMe",
         },
       },
     },
   },
-  responses: [],
+  responses: {
+    [STATUS_OK]: {
+      description: "success in create about-me",
+    },
+    [STATUS_BAD_REQUEST]: {
+      description: "error in craete about-me",
+      content: {
+        "application/json": {
+          schema: {
+            $ref: "#/components/schemas/SchemaError",
+          },
+        },
+      },
+    },
+    [STATUS_INTERNAL_SERVER_ERROR]: {
+      description: "error in server",
+      content: {
+        "application/json": {
+          schema: {
+            $ref: "#/components/schemas/SchemaError",
+          },
+        },
+      },
+    },
+  },
   definitions: {
-    SchemaReqCreateAboutMe,
+    SchemaError,
+    SchemaAboutMe,
   },
 })
 
-export default Controller(async (req, send) => {})
+export default Controller(async (req, send) => {
+  var body = req.body as IReqCreateAboutMe
+
+  var { isValid, errors } = validateCreateAboutMe.validation(body)
+
+  if (isValid) {
+    var isCreateAboutMe = await serviceCreateAboutMe(body)
+
+    if (isCreateAboutMe.isSuccess) {
+      return send(Success(isCreateAboutMe.value))
+    } else {
+      return send(Exception(new BussinessError(isCreateAboutMe.error)))
+    }
+  }
+
+  return send(Exception(new BussinessError(errors)))
+})

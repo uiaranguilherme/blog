@@ -16,16 +16,6 @@ class ProjectModel implements IProject {
   type: string
 
   @Column()
-  @BeforeInsert()
-  joinStacks() {
-    if (Array.isArray(this.stacks)) {
-      this.stacks = JSON.stringify(this.stacks)
-    }
-  }
-  @AfterLoad()
-  parseStacks() {
-    this.stacks = JSON.parse(this.stacks)
-  }
   stacks: string
 
   @Column()
@@ -45,6 +35,18 @@ class ProjectModel implements IProject {
     default: () => Date.now(),
   })
   updatedAt: Date
+
+  @BeforeInsert()
+  serialize() {
+    if (Array.isArray(this.stacks)) {
+      this.stacks = JSON.stringify(this.stacks)
+    }
+  }
+
+  @AfterLoad()
+  deserialize() {
+    this.stacks = JSON.parse(this.stacks)
+  }
 }
 
 export default ProjectModel
