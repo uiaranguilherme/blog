@@ -118,7 +118,187 @@
         }
       }
     },
+    "/projects/paginate": {
+      "get": {
+        "tags": [
+          "Projects"
+        ],
+        "description": "Get all projects per page",
+        "parameters": [
+          {
+            "in": "query",
+            "name": "page",
+            "type": "string",
+            "required": true
+          },
+          {
+            "in": "query",
+            "name": "amount",
+            "type": "string",
+            "required": true
+          },
+          {
+            "in": "query",
+            "name": "type",
+            "type": "string",
+            "required": false
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success in listing the projects",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/SchemaProjectList"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "error in listing the projects",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/SchemaError"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "error in server",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/SchemaError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
     "/projects/create-project": {
+      "post": {
+        "tags": [
+          "Projects"
+        ],
+        "description": "This router is create new projects in portifolio",
+        "responses": {
+          "200": {
+            "description": "success in create project"
+          },
+          "400": {
+            "description": "error in create project",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/SchemaError"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "error in server",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/SchemaError"
+                }
+              }
+            }
+          }
+        },
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "description": "Infos the project",
+              "schema": {
+                "$ref": "#/components/schemas/SchemaProject"
+              }
+            }
+          }
+        }
+      }
+    },
+    "/projects/delete/:id": {
+      "delete": {
+        "tags": [
+          "Projects"
+        ],
+        "description": "Delete project per id",
+        "responses": {
+          "200": {
+            "description": "Success in delete project"
+          },
+          "400": {
+            "description": "error in delete project",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/SchemaError"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "error in server",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/SchemaError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/about-me/create/about-me": {
+      "post": {
+        "tags": [
+          "About-me"
+        ],
+        "description": "Create about-me infos",
+        "responses": {
+          "200": {
+            "description": "success in create about-me"
+          },
+          "400": {
+            "description": "error in craete about-me",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/SchemaError"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "error in server",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/SchemaError"
+                }
+              }
+            }
+          }
+        },
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "description": "About-me info",
+              "type": "object",
+              "schema": {
+                "$ref": "#/components/schemas/SchemaAboutMe"
+              }
+            }
+          }
+        }
+      }
+    },
+    "/projects/create/project": {
       "post": {
         "tags": [
           "Projects"
@@ -234,6 +414,23 @@
           "url": {
             "type": "string",
             "example": "https://"
+          }
+        }
+      },
+      "SchemaProjectList": {
+        "type": "object",
+        "properties": {
+          "page": {
+            "type": "number",
+            "example": 1
+          },
+          "quantity_items": {
+            "type": "number",
+            "example": 1000
+          },
+          "projects": {
+            "type": "array",
+            "example": []
           }
         }
       }

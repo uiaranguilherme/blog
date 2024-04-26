@@ -1,5 +1,6 @@
 import SchemaError from "./error"
 import SchemaAboutMe from "./about-me"
 import SchemaProject from "./project"
+import SchemaProjectList from "./project-list"
 
-export { SchemaError, SchemaAboutMe, SchemaProject }
+export { SchemaError, SchemaAboutMe, SchemaProject, SchemaProjectList }

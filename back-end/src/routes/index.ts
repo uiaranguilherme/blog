@@ -1,6 +1,6 @@
 import { IRoute } from "@infra"
 import { createAboutMe, getAboutMe } from "./about-me"
-import { createNewProject } from "./projects"
+import { createNewProject, deleteProjectPerId, getProjectPaginate } from "./projects"
 
 const index = "/"
 
@@ -15,7 +15,7 @@ const AllRoutes: Array<IRoute> = [
       },
       {
         type: "post",
-        path: "/craete-about-me",
+        path: "/create/about-me",
         route: createAboutMe,
       },
     ],
@@ -24,9 +24,19 @@ const AllRoutes: Array<IRoute> = [
     path: "/projects",
     childs: [
       {
+        type: "get",
+        path: "/paginate",
+        route: getProjectPaginate,
+      },
+      {
         type: "post",
-        path: "/create-project",
+        path: "/create/project",
         route: createNewProject,
+      },
+      {
+        type: "delete",
+        path: "/delete/:id",
+        route: deleteProjectPerId,
       },
     ],
   },

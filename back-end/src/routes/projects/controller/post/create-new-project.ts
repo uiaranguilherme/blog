@@ -1,12 +1,16 @@
 import { STATUS_BAD_REQUEST, STATUS_INTERNAL_SERVER_ERROR, STATUS_OK } from "@constants"
-import { Controller } from "@infra"
+import { Controller, Exception, Success } from "@infra"
 import CreateRouteDocumentation from "@swagger"
 import { SchemaError, SchemaProject } from "@swagger-components"
+import { IProject } from "../../interfaces/iproject"
+import validationCreateProject from "../../validation/validation-create-project"
+import { BussinessError } from "@handler"
+import serviceCreateNewProject from "../../services/service-create-new-project"
 
 CreateRouteDocumentation({
   type: "post",
   tags: ["Projects"],
-  path: "/projects/create-project",
+  path: "/projects/create/project",
   description: "This router is create new projects in portifolio",
   body: {
     content: {
@@ -48,4 +52,20 @@ CreateRouteDocumentation({
     SchemaError,
   },
 })
-export default Controller(async (req, send) => {})
+export default Controller(async (req, send) => {
+  const body = req.body as IProject
+
+  const { errors, isValid } = validationCreateProject.validation(body)
+
+  if (isValid) {
+    var iscreatedProject = await serviceCreateNewProject(body)
+
+    if (iscreatedProject.isSuccess) {
+      return send(Success(iscreatedProject.value))
+    } else {
+      return send(Exception(new BussinessError(iscreatedProject.error)))
+    }
+  }
+
+  return send(Exception(new BussinessError(errors)))
+})

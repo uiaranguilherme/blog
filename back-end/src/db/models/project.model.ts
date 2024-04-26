@@ -35,18 +35,6 @@ class ProjectModel implements IProject {
     default: () => Date.now(),
   })
   updatedAt: Date
-
-  @BeforeInsert()
-  serialize() {
-    if (Array.isArray(this.stacks)) {
-      this.stacks = JSON.stringify(this.stacks)
-    }
-  }
-
-  @AfterLoad()
-  deserialize() {
-    this.stacks = JSON.parse(this.stacks)
-  }
 }
 
 export default ProjectModel
