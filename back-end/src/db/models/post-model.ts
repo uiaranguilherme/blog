@@ -1,8 +1,8 @@
 import { Column, Entity, PrimaryGeneratedColumn } from "typeorm"
-import IProject from "./interfaces/iproject"
+import IPost from "./interfaces/ipost"
 
 @Entity()
-class ProjectModel implements IProject {
+class PostModel implements IPost {
   @PrimaryGeneratedColumn("uuid")
   id: string
 
@@ -10,19 +10,16 @@ class ProjectModel implements IProject {
   name: string
 
   @Column()
+  img: string
+
+  @Column()
   description: string
 
-  @Column()
-  type: string
-
   @Column("varchar", { array: true })
-  stacks: string[]
+  tags: string[]
 
   @Column()
-  git: string
-
-  @Column()
-  url: string
+  content: string
 
   @Column({
     type: "date",
@@ -37,4 +34,4 @@ class ProjectModel implements IProject {
   updatedAt: Date
 }
 
-export default ProjectModel
+export default PostModel
