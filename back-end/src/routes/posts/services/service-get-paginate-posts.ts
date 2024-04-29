@@ -3,13 +3,15 @@ import { Success } from "@infra"
 import IParamsPaginatePosts from "../interfaces/iget-params-post-paginate"
 
 export default async (params: IParamsPaginatePosts) => {
-  var projects = null
-
-  projects = await PostRepository.find({ select: ["id", "name", "img", "tags", "createdAt", "description"] })
+  const [items, totalItems] = await PostRepository.findAndCount({
+    select: ["id", "name", "img", "tags", "createdAt", "description"],
+    take: params.amount,
+    skip: params.page * params.amount,
+  })
 
   return Success({
     page: params.page,
-    quantity_items: projects.length,
-    projects: projects.slice(params.page * params.amount, params.page * params.amount + params.amount),
+    quantity_items: totalItems,
+    projects: items,
   })
 }

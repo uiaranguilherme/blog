@@ -10,7 +10,7 @@ import { STATUS_BAD_REQUEST, STATUS_INTERNAL_SERVER_ERROR, STATUS_OK } from "@co
 CreateRouteDocumentation({
   tags: ["About-me"],
   type: "post",
-  path: "/about-me/create/about-me",
+  path: "/about-me",
   description: "Create about-me infos",
   body: {
     content: {

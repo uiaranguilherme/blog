@@ -9,7 +9,7 @@ import serviceCreateNewPost from "../../services/service-create-new-post"
 
 CreateRouteDocumentation({
   type: "post",
-  path: "/posts/create/new-post",
+  path: "/posts",
   tags: ["Posts"],
   description: "Create new post",
   body: {

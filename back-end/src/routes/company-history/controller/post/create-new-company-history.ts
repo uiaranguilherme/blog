@@ -1,41 +1,34 @@
 import { STATUS_OK, STATUS_BAD_REQUEST, STATUS_INTERNAL_SERVER_ERROR } from "@constants"
 import { Controller, Exception } from "@infra"
 import CreateRouteDocumentation from "@swagger"
-import { SchemaError, SchemaPost } from "@swagger-components"
-import IPost from "../../interfaces/ipost"
-import validationCreateNewPost from "../../validation/validation-create-new-post"
+import { SchemaCompanyHistory, SchemaError } from "@swagger-components"
+import ICompanyHistory from "../../interfaces/icompany-history"
+import validationCreateCompanyHistory from "../../validations/validation-create-company-history"
 import { BussinessError } from "@handler"
-import serviceUpdatePostPerId from "../../services/service-update-post-per-id"
+import serviceCreateNewCompanyHistory from "../../services/service-create-new-company-history"
 
 CreateRouteDocumentation({
-  type: "put",
-  path: "/posts/:id",
-  tags: ["Posts"],
-  description: "Update post",
-  parameters: [
-    {
-      in: "path",
-      required: true,
-      name: "id",
-    },
-  ],
+  type: "post",
+  path: "/company-history",
+  tags: ["Company History"],
+  description: "Create new company history",
   body: {
     content: {
       "application/json": {
         description: "Post",
         type: "object",
         schema: {
-          $ref: "#/components/schemas/SchemaPost",
+          $ref: "#/components/schemas/SchemaCompanyHistory",
         },
       },
     },
   },
   responses: {
     [STATUS_OK]: {
-      description: "Success in update post",
+      description: "Success in created new company history",
     },
     [STATUS_BAD_REQUEST]: {
-      description: "error in update post",
+      description: "error in craete company history",
       content: {
         "application/json": {
           schema: {
@@ -57,19 +50,18 @@ CreateRouteDocumentation({
   },
   definitions: {
     SchemaError,
-    SchemaPost,
+    SchemaCompanyHistory,
   },
 })
 export default Controller(async (req, send) => {
-  var id = req.params.id as string
-  var post = req.body as IPost
+  const body = req.body as ICompanyHistory
 
-  var { errors, isValid } = validationCreateNewPost.validation(post)
+  const { errors, isValid } = validationCreateCompanyHistory.validation(body)
 
   if (isValid) {
-    var isUpdatedPost = await serviceUpdatePostPerId(id, post)
+    var isCreatedCompanyHistory = await serviceCreateNewCompanyHistory(body)
 
-    return send(isUpdatedPost)
+    return send(isCreatedCompanyHistory)
   }
 
   return send(Exception(new BussinessError(errors)))

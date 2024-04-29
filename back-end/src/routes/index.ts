@@ -1,7 +1,8 @@
 import { IRoute } from "@infra"
 import { createAboutMe, getAboutMe } from "./about-me"
 import { createNewProject, deleteProjectPerId, getProjectPaginate } from "./projects"
-import { createNewPost, getPostPaginate, getPostPerId, updatePostPerId } from "./posts"
+import { getPostPerId, getPostPaginate, createNewPost, updatePostPerId, deletePostPerId } from "./posts"
+import { createNewCompanyHistory } from "./company-history"
 
 const index = "/"
 
@@ -16,7 +17,7 @@ const AllRoutes: Array<IRoute> = [
       },
       {
         type: "post",
-        path: "/create/about-me",
+        path: index,
         route: createAboutMe,
       },
     ],
@@ -31,7 +32,7 @@ const AllRoutes: Array<IRoute> = [
       },
       {
         type: "post",
-        path: "/create/project",
+        path: index,
         route: createNewProject,
       },
       {
@@ -56,13 +57,28 @@ const AllRoutes: Array<IRoute> = [
       },
       {
         type: "post",
-        path: "/create/post",
+        path: index,
         route: createNewPost,
       },
       {
         type: "put",
-        path: "/update/post",
+        path: "/:id",
         route: updatePostPerId,
+      },
+      {
+        type: "delete",
+        path: "/:id",
+        route: deletePostPerId,
+      },
+    ],
+  },
+  {
+    path: "/company-history",
+    childs: [
+      {
+        type: "post",
+        path: index,
+        route: createNewCompanyHistory,
       },
     ],
   },

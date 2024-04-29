@@ -35,6 +35,48 @@
   ],
   "paths": {
     "/about-me": {
+      "post": {
+        "tags": [
+          "About-me"
+        ],
+        "description": "Create about-me infos",
+        "responses": {
+          "200": {
+            "description": "success in create about-me"
+          },
+          "400": {
+            "description": "error in craete about-me",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/SchemaError"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "error in server",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/SchemaError"
+                }
+              }
+            }
+          }
+        },
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "description": "About-me info",
+              "type": "object",
+              "schema": {
+                "$ref": "#/components/schemas/SchemaAboutMe"
+              }
+            }
+          }
+        }
+      },
       "get": {
         "tags": [
           "About-me"
@@ -74,18 +116,18 @@
         }
       }
     },
-    "/about-me/create/about-me": {
+    "/projects": {
       "post": {
         "tags": [
-          "About-me"
+          "Projects"
         ],
-        "description": "Create about-me infos",
+        "description": "This router is create new projects in portifolio",
         "responses": {
           "200": {
-            "description": "success in create about-me"
+            "description": "success in create project"
           },
           "400": {
-            "description": "error in craete about-me",
+            "description": "error in create project",
             "content": {
               "application/json": {
                 "schema": {
@@ -108,10 +150,9 @@
         "requestBody": {
           "content": {
             "application/json": {
-              "description": "About-me info",
-              "type": "object",
+              "description": "Infos the project",
               "schema": {
-                "$ref": "#/components/schemas/SchemaAboutMe"
+                "$ref": "#/components/schemas/SchemaProject"
               }
             }
           }
@@ -178,49 +219,6 @@
         }
       }
     },
-    "/projects/create/project": {
-      "post": {
-        "tags": [
-          "Projects"
-        ],
-        "description": "This router is create new projects in portifolio",
-        "responses": {
-          "200": {
-            "description": "success in create project"
-          },
-          "400": {
-            "description": "error in create project",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/SchemaError"
-                }
-              }
-            }
-          },
-          "500": {
-            "description": "error in server",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/SchemaError"
-                }
-              }
-            }
-          }
-        },
-        "requestBody": {
-          "content": {
-            "application/json": {
-              "description": "Infos the project",
-              "schema": {
-                "$ref": "#/components/schemas/SchemaProject"
-              }
-            }
-          }
-        }
-      }
-    },
     "/projects/:id": {
       "delete": {
         "tags": [
@@ -254,32 +252,18 @@
         }
       }
     },
-    "/posts/:id": {
-      "get": {
+    "/posts": {
+      "post": {
         "tags": [
           "Posts"
         ],
-        "description": "Get post per id",
-        "parameters": [
-          {
-            "in": "path",
-            "required": true,
-            "name": "id"
-          }
-        ],
+        "description": "Create new post",
         "responses": {
           "200": {
-            "description": "Success in get post",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/SchemaPost"
-                }
-              }
-            }
+            "description": "Success in created post"
           },
           "400": {
-            "description": "error in listing the posts",
+            "description": "error in craete post",
             "content": {
               "application/json": {
                 "schema": {
@@ -295,6 +279,17 @@
                 "schema": {
                   "$ref": "#/components/schemas/SchemaError"
                 }
+              }
+            }
+          }
+        },
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "description": "Post",
+              "type": "object",
+              "schema": {
+                "$ref": "#/components/schemas/SchemaPost"
               }
             }
           }
@@ -361,18 +356,70 @@
         }
       }
     },
-    "/posts/create/new-post": {
-      "post": {
+    "/posts/:id": {
+      "get": {
         "tags": [
           "Posts"
         ],
-        "description": "Create new post",
+        "description": "Get post per id",
+        "parameters": [
+          {
+            "in": "path",
+            "required": true,
+            "name": "id"
+          }
+        ],
         "responses": {
           "200": {
-            "description": "Success in created post"
+            "description": "Success in get post",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/SchemaPost"
+                }
+              }
+            }
           },
           "400": {
-            "description": "error in craete post",
+            "description": "error in listing the posts",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/SchemaError"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "error in server",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/SchemaError"
+                }
+              }
+            }
+          }
+        }
+      },
+      "put": {
+        "tags": [
+          "Posts"
+        ],
+        "description": "Update post",
+        "parameters": [
+          {
+            "in": "path",
+            "required": true,
+            "name": "id"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success in update post"
+          },
+          "400": {
+            "description": "error in update post",
             "content": {
               "application/json": {
                 "schema": {
@@ -399,6 +446,88 @@
               "type": "object",
               "schema": {
                 "$ref": "#/components/schemas/SchemaPost"
+              }
+            }
+          }
+        }
+      },
+      "delete": {
+        "tags": [
+          "Posts"
+        ],
+        "description": "Delete post",
+        "parameters": [
+          {
+            "in": "path",
+            "required": true,
+            "name": "id"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success in delete post"
+          },
+          "400": {
+            "description": "error in delete post",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/SchemaError"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "error in server",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/SchemaError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/company-history": {
+      "post": {
+        "tags": [
+          "Company History"
+        ],
+        "description": "Create new company history",
+        "responses": {
+          "200": {
+            "description": "Success in created new company history"
+          },
+          "400": {
+            "description": "error in craete company history",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/SchemaError"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "error in server",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/SchemaError"
+                }
+              }
+            }
+          }
+        },
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "description": "Post",
+              "type": "object",
+              "schema": {
+                "$ref": "#/components/schemas/SchemaCompanyHistory"
               }
             }
           }
@@ -537,6 +666,26 @@
           "posts": {
             "type": "array",
             "example": []
+          }
+        }
+      },
+      "SchemaCompanyHistory": {
+        "type": "object",
+        "properties": {
+          "company": {
+            "type": "string"
+          },
+          "office": {
+            "type": "string"
+          },
+          "office_description": {
+            "type": "string"
+          },
+          "when_arrived": {
+            "type": "string"
+          },
+          "when_came_out": {
+            "type": "string"
           }
         }
       }

@@ -10,7 +10,7 @@ import serviceCreateNewProject from "../../services/service-create-new-project"
 CreateRouteDocumentation({
   type: "post",
   tags: ["Projects"],
-  path: "/projects/create/project",
+  path: "/projects",
   description: "This router is create new projects in portifolio",
   body: {
     content: {
