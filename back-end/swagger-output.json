@@ -532,6 +532,77 @@
             }
           }
         }
+      },
+      "get": {
+        "tags": [
+          "Company History"
+        ],
+        "description": "Get all company history",
+        "responses": {
+          "200": {
+            "description": "Success in listing the company history",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/SchemaCompanyHistoryList"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "error in listing the company history",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/SchemaError"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "error in server",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/SchemaError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/company-history/:id": {
+      "delete": {
+        "tags": [
+          "Company History"
+        ],
+        "description": "Delete company history per id",
+        "responses": {
+          "200": {
+            "description": "Success in delete company history"
+          },
+          "400": {
+            "description": "error in delete company history",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/SchemaError"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "error in server",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/SchemaError"
+                }
+              }
+            }
+          }
+        }
       }
     }
   },
@@ -686,6 +757,27 @@
           },
           "when_came_out": {
             "type": "string"
+          }
+        }
+      },
+      "SchemaCompanyHistoryList": {
+        "type": "object",
+        "properties": {
+          "quantity_items": {
+            "type": "number",
+            "example": 1000
+          },
+          "companys": {
+            "type": "array",
+            "example": [
+              {
+                "company": "string",
+                "office": "string",
+                "office_description": "string",
+                "when_arrived": "Date",
+                "when_came_out": "Date"
+              }
+            ]
           }
         }
       }
