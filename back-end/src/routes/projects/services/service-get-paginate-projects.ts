@@ -1,20 +1,30 @@
 import { ProjectRepository } from "@models"
 import IParamsPaginateProjects from "../interfaces/iget-projects-paginate"
-import { Exception, Success } from "@infra"
-import { BussinessError } from "@handler"
+import { Success } from "@infra"
 
 export default async (params: IParamsPaginateProjects) => {
-  var projects = null
-
   if (params.type !== null && params.type !== "" && params.type !== undefined) {
-    projects = await ProjectRepository.find({ where: { type: params.type } })
+    const [items, totalItems] = await ProjectRepository.findAndCount({
+      where: { type: params.type },
+      take: params.amount,
+      skip: params.amount * params.page,
+    })
 
     return Success({
       page: params.page,
-      quantity_items: projects.length,
-      projects: projects.slice(params.page * 10, params.page * params.amount + params.amount),
+      quantity_items: totalItems,
+      projects: items,
     })
   }
 
-  return Exception(new BussinessError("Unable to obtain projects"))
+  const [items, totalItems] = await ProjectRepository.findAndCount({
+    take: params.amount,
+    skip: params.amount * params.page,
+  })
+
+  return Success({
+    page: params.page,
+    quantity_items: totalItems,
+    projects: items,
+  })
 }

@@ -1,17 +1,24 @@
-import { STATUS_BAD_REQUEST, STATUS_INTERNAL_SERVER_ERROR, STATUS_OK } from "@constants"
-import { Controller, Exception, Success } from "@infra"
+import { STATUS_OK, STATUS_BAD_REQUEST, STATUS_INTERNAL_SERVER_ERROR } from "@constants"
+import { Controller, Exception } from "@infra"
 import CreateRouteDocumentation from "@swagger"
 import { SchemaError, SchemaPost } from "@swagger-components"
 import IPost from "../../interfaces/ipost"
 import validationCreateNewPost from "../../validation/validation-create-new-post"
 import { BussinessError } from "@handler"
-import serviceCreateNewPost from "../../services/service-create-new-post"
+import serviceUpdatePostPerId from "../../services/service-update-post-per-id"
 
 CreateRouteDocumentation({
-  type: "post",
-  path: "/posts",
+  type: "put",
+  path: "/posts/:id",
   tags: ["Posts"],
-  description: "Create new post",
+  description: "Update post",
+  parameters: [
+    {
+      in: "path",
+      required: true,
+      name: "id",
+    },
+  ],
   body: {
     content: {
       "application/json": {
@@ -25,10 +32,10 @@ CreateRouteDocumentation({
   },
   responses: {
     [STATUS_OK]: {
-      description: "Success in created post",
+      description: "Success in update post",
     },
     [STATUS_BAD_REQUEST]: {
-      description: "error in craete post",
+      description: "error in update post",
       content: {
         "application/json": {
           schema: {
@@ -54,18 +61,15 @@ CreateRouteDocumentation({
   },
 })
 export default Controller(async (req, send) => {
-  var body = req.body as IPost
+  var id = req.params.id as string
+  var post = req.body as IPost
 
-  var { errors, isValid } = validationCreateNewPost.validation(body)
+  var { errors, isValid } = validationCreateNewPost.validation(post)
 
   if (isValid) {
-    var isCreatedPost = await serviceCreateNewPost(body)
+    var isUpdatedPost = await serviceUpdatePostPerId(id, post)
 
-    if (isCreatedPost.isSuccess) {
-      return send(Success(isCreatedPost.value))
-    } else {
-      return send(Exception(new BussinessError(isCreatedPost.error)))
-    }
+    return send(isUpdatedPost)
   }
 
   return send(Exception(new BussinessError(errors)))

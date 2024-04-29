@@ -1,21 +1,28 @@
-import { STATUS_BAD_REQUEST, STATUS_INTERNAL_SERVER_ERROR, STATUS_OK } from "@constants"
+import { STATUS_OK, STATUS_BAD_REQUEST, STATUS_INTERNAL_SERVER_ERROR } from "@constants"
 import { BussinessError } from "@handler"
 import { Controller, Exception } from "@infra"
 import CreateRouteDocumentation from "@swagger"
 import { SchemaError } from "@swagger-components"
-import serviceDeleteProjectPerId from "../../services/service-delete-project-per-id"
+import serviceDeletePostPerId from "../../services/service-delete-post-per-id"
 
 CreateRouteDocumentation({
   type: "delete",
-  path: "/projects/:id",
-  tags: ["Projects"],
-  description: "Delete project per id",
+  path: "/posts/:id",
+  tags: ["Posts"],
+  description: "Delete post",
+  parameters: [
+    {
+      in: "path",
+      required: true,
+      name: "id",
+    },
+  ],
   responses: {
     [STATUS_OK]: {
-      description: "Success in delete project",
+      description: "Success in delete post",
     },
     [STATUS_BAD_REQUEST]: {
-      description: "error in delete project",
+      description: "error in delete post",
       content: {
         "application/json": {
           schema: {
@@ -39,15 +46,14 @@ CreateRouteDocumentation({
     SchemaError,
   },
 })
-
 export default Controller(async (req, send) => {
-  const id = req.params.id
+  const id = req.params.id as string
 
-  if (id === null || id === undefined) {
-    return send(Exception(new BussinessError("Unabled id parameter")))
+  if (id === undefined || id === null) {
+    return send(Exception(new BussinessError("Unabled id for delete post")))
   }
 
-  const isDeletedProject = await serviceDeleteProjectPerId(id)
+  var isDeletedPost = await serviceDeletePostPerId(id)
 
-  return send(isDeletedProject)
+  return send(isDeletedPost)
 })
