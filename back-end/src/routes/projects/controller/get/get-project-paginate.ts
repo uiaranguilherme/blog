@@ -70,10 +70,10 @@ CreateRouteDocumentation({
 })
 
 export default Controller(async (req, send) => {
-  if (typeof req.query.amount === "number" && typeof req.query.page === "number" && typeof req.query.type === "string") {
+  if (req.query.amount !== undefined && typeof req.query.amount === "string" && req.query.page !== undefined && typeof req.query.page === "string") {
     const params = {
-      amount: req.query.amount,
-      page: req.query.page,
+      amount: Number.parseInt(req.query.amount),
+      page: Number.parseInt(req.query.page),
       type: req.query.type,
     } as IParamsPaginateProjects
 

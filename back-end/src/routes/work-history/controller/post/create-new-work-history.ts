@@ -1,34 +1,34 @@
 import { STATUS_OK, STATUS_BAD_REQUEST, STATUS_INTERNAL_SERVER_ERROR } from "@constants"
 import { Controller, Exception } from "@infra"
 import CreateRouteDocumentation from "@swagger"
-import { SchemaCompanyHistory, SchemaError } from "@swagger-components"
-import ICompanyHistory from "../../interfaces/icompany-history"
-import validationCreateCompanyHistory from "../../validations/validation-create-company-history"
+import { SchemaWorkHistory, SchemaError } from "@swagger-components"
+import IWorkHistory from "../../interfaces/iwork-history"
+import validationCreateWorkHistory from "../../validations/validation-create-work-history"
 import { BussinessError } from "@handler"
-import serviceCreateNewCompanyHistory from "../../services/service-create-new-company-history"
+import serviceCreateNewWorkHistory from "../../services/service-create-new-work-history"
 
 CreateRouteDocumentation({
   type: "post",
-  path: "/company-history",
-  tags: ["Company History"],
-  description: "Create new company history",
+  path: "/work-history",
+  tags: ["Work History"],
+  description: "Create new work history",
   body: {
     content: {
       "application/json": {
         description: "Post",
         type: "object",
         schema: {
-          $ref: "#/components/schemas/SchemaCompanyHistory",
+          $ref: "#/components/schemas/SchemaWorkHistory",
         },
       },
     },
   },
   responses: {
     [STATUS_OK]: {
-      description: "Success in created new company history",
+      description: "Success in created new work history",
     },
     [STATUS_BAD_REQUEST]: {
-      description: "error in craete company history",
+      description: "error in craete work history",
       content: {
         "application/json": {
           schema: {
@@ -50,18 +50,18 @@ CreateRouteDocumentation({
   },
   definitions: {
     SchemaError,
-    SchemaCompanyHistory,
+    SchemaWorkHistory,
   },
 })
 export default Controller(async (req, send) => {
-  const body = req.body as ICompanyHistory
+  const body = req.body as IWorkHistory
 
-  const { errors, isValid } = validationCreateCompanyHistory.validation(body)
+  const { errors, isValid } = validationCreateWorkHistory.validation(body)
 
   if (isValid) {
-    var isCreatedCompanyHistory = await serviceCreateNewCompanyHistory(body)
+    var isCreatedWorkHistory = await serviceCreateNewWorkHistory(body)
 
-    return send(isCreatedCompanyHistory)
+    return send(isCreatedWorkHistory)
   }
 
   return send(Exception(new BussinessError(errors)))

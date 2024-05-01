@@ -3,19 +3,26 @@ import { BussinessError } from "@handler"
 import { Controller, Exception } from "@infra"
 import CreateRouteDocumentation from "@swagger"
 import { SchemaError } from "@swagger-components"
-import serviceDeleteCompanyHistoryPerId from "../../services/service-delete-company-history-per-id"
+import serviceDeleteWorkHistoryPerId from "../../services/service-delete-work-history-per-id"
 
 CreateRouteDocumentation({
   type: "delete",
-  path: "/company-history/:id",
-  tags: ["Company History"],
-  description: "Delete company history per id",
+  path: "/work-history/{id}",
+  tags: ["Work History"],
+  description: "Delete work history per id",
+  parameters: [
+    {
+      in: "path",
+      name: "id",
+      required: true,
+    },
+  ],
   responses: {
     [STATUS_OK]: {
-      description: "Success in delete company history",
+      description: "Success in delete work history",
     },
     [STATUS_BAD_REQUEST]: {
-      description: "error in delete company history",
+      description: "error in delete work history",
       content: {
         "application/json": {
           schema: {
@@ -46,7 +53,7 @@ export default Controller(async (req, send) => {
     return send(Exception(new BussinessError("Unabled parameter id in params")))
   }
 
-  var isDeletedCompanyHistoryPerid = await serviceDeleteCompanyHistoryPerId(id)
+  var isDeletedWorkHistoryPerid = await serviceDeleteWorkHistoryPerId(id)
 
-  return send(isDeletedCompanyHistoryPerid)
+  return send(isDeletedWorkHistoryPerid)
 })

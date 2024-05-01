@@ -1,8 +1,8 @@
 import { Column, Entity, PrimaryGeneratedColumn } from "typeorm"
-import ICompanyHistory from "./interfaces/icompany-history"
+import IWorkHistory from "./interfaces/iwork-history"
 
 @Entity()
-class CompanyHistoryModel implements ICompanyHistory {
+class CompanyHistoryModel implements IWorkHistory {
   @PrimaryGeneratedColumn("uuid")
   id: string
 

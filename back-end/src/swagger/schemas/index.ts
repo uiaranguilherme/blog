@@ -4,7 +4,7 @@ import SchemaProject from "./project"
 import SchemaProjectList from "./project-list"
 import SchemaPost from "./post"
 import SchemaPostsList from "./posts-list"
-import SchemaCompanyHistory from "./company-history"
-import SchemaCompanyHistoryList from "./company-history-list"
+import SchemaWorkHistory from "./work-history"
+import SchemaWorkHistoryList from "./work-history-list"
 
-export { SchemaError, SchemaAboutMe, SchemaProject, SchemaProjectList, SchemaPost, SchemaPostsList, SchemaCompanyHistory, SchemaCompanyHistoryList }
+export { SchemaError, SchemaAboutMe, SchemaProject, SchemaProjectList, SchemaPost, SchemaPostsList, SchemaWorkHistory, SchemaWorkHistoryList }

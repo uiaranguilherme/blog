@@ -7,7 +7,7 @@ import serviceDeletePostPerId from "../../services/service-delete-post-per-id"
 
 CreateRouteDocumentation({
   type: "delete",
-  path: "/posts/:id",
+  path: "/posts/{id}",
   tags: ["Posts"],
   description: "Delete post",
   parameters: [

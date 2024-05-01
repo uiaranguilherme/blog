@@ -8,5 +8,8 @@ export default async (id: string) => {
     return Success({})
   }
 
-  return Success(post)
+  return Success({
+    ...post,
+    tags: JSON.parse(post.tags),
+  })
 }

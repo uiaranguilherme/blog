@@ -219,12 +219,19 @@
         }
       }
     },
-    "/projects/:id": {
+    "/projects/{id}": {
       "delete": {
         "tags": [
           "Projects"
         ],
         "description": "Delete project per id",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "id",
+            "required": true
+          }
+        ],
         "responses": {
           "200": {
             "description": "Success in delete project"
@@ -306,20 +313,14 @@
           {
             "in": "query",
             "name": "page",
-            "type": "string",
+            "type": "number",
             "required": true
           },
           {
             "in": "query",
             "name": "amount",
-            "type": "string",
+            "type": "number",
             "required": true
-          },
-          {
-            "in": "query",
-            "name": "type",
-            "type": "string",
-            "required": false
           }
         ],
         "responses": {
@@ -356,7 +357,7 @@
         }
       }
     },
-    "/posts/:id": {
+    "/posts/{id}": {
       "get": {
         "tags": [
           "Posts"
@@ -490,18 +491,18 @@
         }
       }
     },
-    "/company-history": {
+    "/work-history": {
       "post": {
         "tags": [
-          "Company History"
+          "Work History"
         ],
-        "description": "Create new company history",
+        "description": "Create new work history",
         "responses": {
           "200": {
-            "description": "Success in created new company history"
+            "description": "Success in created new work history"
           },
           "400": {
-            "description": "error in craete company history",
+            "description": "error in craete work history",
             "content": {
               "application/json": {
                 "schema": {
@@ -527,7 +528,7 @@
               "description": "Post",
               "type": "object",
               "schema": {
-                "$ref": "#/components/schemas/SchemaCompanyHistory"
+                "$ref": "#/components/schemas/SchemaWorkHistory"
               }
             }
           }
@@ -535,22 +536,22 @@
       },
       "get": {
         "tags": [
-          "Company History"
+          "Work History"
         ],
-        "description": "Get all company history",
+        "description": "Get all work history",
         "responses": {
           "200": {
-            "description": "Success in listing the company history",
+            "description": "Success in listing the work history",
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/SchemaCompanyHistoryList"
+                  "$ref": "#/components/schemas/SchemaworkHistoryList"
                 }
               }
             }
           },
           "400": {
-            "description": "error in listing the company history",
+            "description": "error in listing the work history",
             "content": {
               "application/json": {
                 "schema": {
@@ -572,18 +573,25 @@
         }
       }
     },
-    "/company-history/:id": {
+    "/work-history/{id}": {
       "delete": {
         "tags": [
-          "Company History"
+          "Work History"
         ],
-        "description": "Delete company history per id",
+        "description": "Delete work history per id",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "id",
+            "required": true
+          }
+        ],
         "responses": {
           "200": {
-            "description": "Success in delete company history"
+            "description": "Success in delete work history"
           },
           "400": {
-            "description": "error in delete company history",
+            "description": "error in delete work history",
             "content": {
               "application/json": {
                 "schema": {
@@ -761,6 +769,47 @@
         }
       },
       "SchemaCompanyHistoryList": {
+        "type": "object",
+        "properties": {
+          "quantity_items": {
+            "type": "number",
+            "example": 1000
+          },
+          "companys": {
+            "type": "array",
+            "example": [
+              {
+                "company": "string",
+                "office": "string",
+                "office_description": "string",
+                "when_arrived": "Date",
+                "when_came_out": "Date"
+              }
+            ]
+          }
+        }
+      },
+      "SchemaWorkHistory": {
+        "type": "object",
+        "properties": {
+          "company": {
+            "type": "string"
+          },
+          "office": {
+            "type": "string"
+          },
+          "office_description": {
+            "type": "string"
+          },
+          "when_arrived": {
+            "type": "string"
+          },
+          "when_came_out": {
+            "type": "string"
+          }
+        }
+      },
+      "SchemaWorkHistoryList": {
         "type": "object",
         "properties": {
           "quantity_items": {

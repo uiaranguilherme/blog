@@ -1,27 +1,27 @@
 import { STATUS_OK, STATUS_BAD_REQUEST, STATUS_INTERNAL_SERVER_ERROR } from "@constants"
 import { Controller } from "@infra"
 import CreateRouteDocumentation from "@swagger"
-import { SchemaCompanyHistoryList, SchemaError } from "@swagger-components"
-import serviceGetAllCompanyHistory from "../../services/service-get-all-company-history"
+import { SchemaWorkHistoryList, SchemaError } from "@swagger-components"
+import serviceGetAllWorkHistory from "../../services/service-get-all-work-history"
 
 CreateRouteDocumentation({
   type: "get",
-  path: "/company-history",
-  tags: ["Company History"],
-  description: "Get all company history",
+  path: "/work-history",
+  tags: ["Work History"],
+  description: "Get all work history",
   responses: {
     [STATUS_OK]: {
-      description: "Success in listing the company history",
+      description: "Success in listing the work history",
       content: {
         "application/json": {
           schema: {
-            $ref: "#/components/schemas/SchemaCompanyHistoryList",
+            $ref: "#/components/schemas/SchemaworkHistoryList",
           },
         },
       },
     },
     [STATUS_BAD_REQUEST]: {
-      description: "error in listing the company history",
+      description: "error in listing the work history",
       content: {
         "application/json": {
           schema: {
@@ -42,12 +42,12 @@ CreateRouteDocumentation({
     },
   },
   definitions: {
-    SchemaCompanyHistoryList,
+    SchemaWorkHistoryList,
     SchemaError,
   },
 })
 export default Controller(async (req, send) => {
-  const companyHistorys = await serviceGetAllCompanyHistory()
+  const workHistorys = await serviceGetAllWorkHistory()
 
-  return send(companyHistorys)
+  return send(workHistorys)
 })
