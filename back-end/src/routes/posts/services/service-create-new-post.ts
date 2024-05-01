@@ -3,9 +3,12 @@ import IPost from "../interfaces/ipost"
 import { Success } from "@infra"
 
 export default async (post: IPost) => {
-  post = PostRepository.create(post)
+  const pt = PostRepository.create({
+    ...post,
+    tags: JSON.stringify(post.tags),
+  })
 
-  await PostRepository.save(post)
+  await PostRepository.save(pt)
 
   return Success("Succes in create post")
 }

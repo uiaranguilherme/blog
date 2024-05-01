@@ -15,20 +15,14 @@ CreateRouteDocumentation({
     {
       in: "query",
       name: "page",
-      type: "string",
+      type: "number",
       required: true,
     },
     {
       in: "query",
       name: "amount",
-      type: "string",
+      type: "number",
       required: true,
-    },
-    {
-      in: "query",
-      name: "type",
-      type: "string",
-      required: false,
     },
   ],
   responses: {
@@ -69,19 +63,18 @@ CreateRouteDocumentation({
   },
 })
 export default Controller(async (req, send) => {
-  if (typeof req.query.amount === "number" && typeof req.query.page === "number") {
+  if (typeof req.query.amount === "string" && typeof req.query.page === "string") {
     const params = {
-      amount: req.query.amount,
-      page: req.query.page,
+      amount: Number.parseInt(req.query.amount),
+      page: Number.parseInt(req.query.page),
     } as IParamsPaginatePosts
 
     const posts = await serviceGetPaginatePosts(params)
 
     if (posts.isSuccess) {
       return send(Success(posts.value))
-    } else {
-      return send(Exception(new BussinessError(posts.error)))
     }
+    return send(Exception(new BussinessError(posts.error)))
   } else {
     return send(Exception(new BussinessError("Verify query params and try again")))
   }

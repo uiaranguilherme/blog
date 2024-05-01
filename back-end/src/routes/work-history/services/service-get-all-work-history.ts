@@ -1,8 +1,8 @@
 import { Success } from "@infra"
-import { CompanyHistoryRepository } from "@models"
+import { WorkHistoryRepository } from "@models"
 
 export default async () => {
-  var [items, totalItems] = await CompanyHistoryRepository.findAndCount({})
+  var [items, totalItems] = await WorkHistoryRepository.findAndCount({})
   return Success({
     quantity_items: totalItems,
     companys: items,

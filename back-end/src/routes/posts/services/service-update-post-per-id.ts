@@ -13,6 +13,7 @@ export default async (id: string, postInUpdate: IPost) => {
   post = PostRepository.create({
     id: post.id,
     ...postInUpdate,
+    tags: JSON.stringify(post.tags),
   })
 
   await PostRepository.update(post.id, post)

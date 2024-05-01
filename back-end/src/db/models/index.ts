@@ -1,5 +1,5 @@
 import ProjectModel from "./project.model"
-import CompanyHistoryModel from "./company-history.model"
+import WorkHistoryModel from "./work-history.model"
 import AboutMeModel from "./about-me-model"
 
-export { ProjectModel, CompanyHistoryModel, AboutMeModel }
+export { ProjectModel, WorkHistoryModel, AboutMeModel }

@@ -16,7 +16,7 @@ class PostModel implements IPost {
   description: string
 
   @Column("varchar", { array: true })
-  tags: string[]
+  tags: string
 
   @Column()
   content: string

@@ -3,7 +3,7 @@ export default interface IProject {
   name: string
   description: string
   type: string
-  stacks: string[]
+  stacks: string
   url: string
   git: string
 }

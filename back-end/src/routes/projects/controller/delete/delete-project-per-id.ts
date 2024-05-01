@@ -7,9 +7,16 @@ import serviceDeleteProjectPerId from "../../services/service-delete-project-per
 
 CreateRouteDocumentation({
   type: "delete",
-  path: "/projects/:id",
+  path: "/projects/{id}",
   tags: ["Projects"],
   description: "Delete project per id",
+  parameters: [
+    {
+      in: "path",
+      name: "id",
+      required: true,
+    },
+  ],
   responses: {
     [STATUS_OK]: {
       description: "Success in delete project",

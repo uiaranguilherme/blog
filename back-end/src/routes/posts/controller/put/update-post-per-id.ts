@@ -9,7 +9,7 @@ import serviceUpdatePostPerId from "../../services/service-update-post-per-id"
 
 CreateRouteDocumentation({
   type: "put",
-  path: "/posts/:id",
+  path: "/posts/{id}",
   tags: ["Posts"],
   description: "Update post",
   parameters: [

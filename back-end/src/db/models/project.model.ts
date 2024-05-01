@@ -1,4 +1,4 @@
-import { Column, Entity, PrimaryGeneratedColumn } from "typeorm"
+import { AfterInsert, BeforeInsert, Column, Entity, PrimaryGeneratedColumn } from "typeorm"
 import IProject from "./interfaces/iproject"
 
 @Entity()
@@ -16,7 +16,7 @@ class ProjectModel implements IProject {
   type: string
 
   @Column("varchar", { array: true })
-  stacks: string[]
+  stacks: string
 
   @Column()
   git: string

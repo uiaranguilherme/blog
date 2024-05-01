@@ -7,7 +7,7 @@ import serviceGetPostPerId from "../../services/service-get-post-per-id"
 
 CreateRouteDocumentation({
   type: "get",
-  path: "/posts/:id",
+  path: "/posts/{id}",
   tags: ["Posts"],
   description: "Get post per id",
   parameters: [
