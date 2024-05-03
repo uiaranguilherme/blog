@@ -6,5 +6,18 @@ import SchemaPost from "./post"
 import SchemaPostsList from "./posts-list"
 import SchemaWorkHistory from "./work-history"
 import SchemaWorkHistoryList from "./work-history-list"
+import SchemaFileInput from "./file-input"
+import SchemaFile from "./file"
 
-export { SchemaError, SchemaAboutMe, SchemaProject, SchemaProjectList, SchemaPost, SchemaPostsList, SchemaWorkHistory, SchemaWorkHistoryList }
+export {
+  SchemaError,
+  SchemaAboutMe,
+  SchemaProject,
+  SchemaProjectList,
+  SchemaPost,
+  SchemaPostsList,
+  SchemaWorkHistory,
+  SchemaWorkHistoryList,
+  SchemaFileInput,
+  SchemaFile,
+}
