@@ -3,6 +3,8 @@ import { createAboutMe, getAboutMe } from "./about-me"
 import { createNewProject, deleteProjectPerId, getProjectPaginate } from "./projects"
 import { getPostPerId, getPostPaginate, createNewPost, updatePostPerId, deletePostPerId } from "./posts"
 import { createNewWorkHistory, deleteWorkHistoryPerId, getAllWorkHistory } from "./work-history"
+import { createNewFile, getFilePerId } from "./files"
+import storage from "@storage"
 
 const index = "/"
 
@@ -89,6 +91,22 @@ const AllRoutes: Array<IRoute> = [
         type: "delete",
         path: "/:id",
         route: deleteWorkHistoryPerId,
+      },
+    ],
+  },
+  {
+    path: "/storage",
+    childs: [
+      {
+        type: "post",
+        path: index,
+        middleware: [storage.single("File")],
+        route: createNewFile,
+      },
+      {
+        type: "get",
+        path: "/:id",
+        route: getFilePerId,
       },
     ],
   },

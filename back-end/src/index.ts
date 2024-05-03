@@ -6,6 +6,7 @@ import * as swaggerUi from "swagger-ui-express"
 import * as dotenv from "dotenv"
 import { RegisterRoutes } from "@infra"
 import AppDataSource from "@models"
+import { root } from "@constants"
 dotenv.config()
 
 AppDataSource.initialize()
@@ -23,7 +24,7 @@ AppDataSource.initialize()
     }
 
     app.use("/services/app-docs", swaggerUi.serve, swaggerUi.setup(swaggerFile, swaggerOptions))
-
+    app.use("/static", express.static(root))
     app.listen(8080, () => console.log("Server is running in http://localhost:8080/services/app-docs"))
   })
   .catch(error => console.log(error))

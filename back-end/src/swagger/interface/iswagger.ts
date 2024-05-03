@@ -10,7 +10,7 @@ type MimeTipe =
   | "application/pdf"
   | "image/png"
 type RouteType = "get" | "post" | "put" | "delete"
-type ParameterType = "string" | "boolean" | "object" | "number" | "array" | "file"
+type ParameterType = "string" | "boolean" | "object" | "number" | "array" | "file" | "binary"
 type ParameterIn = "path" | "query" | "body" | "formData"
 
 interface ISchema {
@@ -19,6 +19,11 @@ interface ISchema {
 }
 
 interface IContent {
+  "multipart/form-data"?: {
+    description?: string
+    type?: "string" | "boolean" | "object" | "number" | "array" | "file"
+    schema?: ISchema
+  }
   "application/json"?: {
     description?: string
     type?: "string" | "boolean" | "object" | "number" | "array" | "file"
