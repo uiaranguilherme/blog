@@ -15,7 +15,7 @@ CreateRouteDocumentation({
       content: {
         "application/json": {
           schema: {
-            $ref: "#/components/schemas/SchemaworkHistoryList",
+            $ref: "#/components/schemas/SchemaWorkHistoryList",
           },
         },
       },
