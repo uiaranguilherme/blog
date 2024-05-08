@@ -11,6 +11,7 @@ const Card = lazy(() => import("./card"));
 const Carousel = lazy(() => import("./carousel"));
 const CarouselItem = lazy(() => import("./carousel/carousel-item"));
 const Markdown = lazy(() => import("./mk"));
+const RichTextMarkdown = lazy(() => import("./rich-text-markdown"));
 
 export {
   Layout,
@@ -22,4 +23,5 @@ export {
   Carousel,
   CarouselItem,
   Markdown,
+  RichTextMarkdown,
 };
