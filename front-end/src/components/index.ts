@@ -2,6 +2,7 @@
 
 import { lazy } from "react";
 import { Footer } from "./layout/main";
+import { ButtonSelectImage } from "./buttons";
 import Loading from "./loading";
 
 const Layout = lazy(() => import("./layout"));
@@ -11,6 +12,7 @@ const Card = lazy(() => import("./card"));
 const Carousel = lazy(() => import("./carousel"));
 const CarouselItem = lazy(() => import("./carousel/carousel-item"));
 const Markdown = lazy(() => import("./mk"));
+const RichTextMarkdown = lazy(() => import("./rich-text-markdown"));
 
 export {
   Layout,
@@ -22,4 +24,6 @@ export {
   Carousel,
   CarouselItem,
   Markdown,
+  RichTextMarkdown,
+  ButtonSelectImage,
 };
