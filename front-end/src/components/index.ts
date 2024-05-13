@@ -2,6 +2,7 @@
 
 import { lazy } from "react";
 import { Footer } from "./layout/main";
+import { ButtonSelectImage } from "./buttons";
 import Loading from "./loading";
 
 const Layout = lazy(() => import("./layout"));
@@ -24,4 +25,5 @@ export {
   CarouselItem,
   Markdown,
   RichTextMarkdown,
+  ButtonSelectImage,
 };

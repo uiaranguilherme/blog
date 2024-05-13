@@ -1,11 +1,10 @@
-import { Button, Divider, Pagination } from "@mui/material";
+import { Button, Divider, Pagination, Input } from "@mui/material";
 import {
   WhapperPresentationPage,
   ContainerPresentation,
   WhapperImagePresentation,
   ImagePresentation,
   ContainerOptionsEditImage,
-  WhapperPresentationText,
   ContainerHistoryCompany,
   HeaderHistoryCompany,
   ContentHistoryCompany,
@@ -21,19 +20,34 @@ import {
 } from "./styles";
 import { AddAPhotoTwoTone } from "@mui/icons-material";
 import RichTextMarkdown from "../../../components/rich-text-markdown";
+import { useState } from "react";
+import { ButtonSelectImage } from "../../../components";
 
 export default () => {
-  const texto = "# Hi, *Pluto*!";
+  const texto = "#### Hi, *Pluto*!";
+  const [selectedImage, setSelectedImage] = useState<any>(null);
+
+  const handleImageSelect = (e: any) => {
+    const imageFile = e.target.files[0];
+    setSelectedImage(URL.createObjectURL(imageFile));
+  };
+
   return (
     <WhapperPresentationPage>
       <ContainerPresentation>
         <ContentImagePresentation>
           <WhapperImagePresentation>
-            <ImagePresentation src="/imgs/foto.jpeg" />
+            <ImagePresentation
+              src={selectedImage !== null ? selectedImage : "/imgs/foto.jpeg"}
+            />
             <ContainerOptionsEditImage>
-              <Button variant="outlined" startIcon={<AddAPhotoTwoTone />}>
-                Trocar Foto
-              </Button>
+              <ButtonSelectImage
+                onSelectImage={handleImageSelect}
+                variant="outlined"
+                startIcon={<AddAPhotoTwoTone />}
+              >
+                Editar imagem
+              </ButtonSelectImage>
             </ContainerOptionsEditImage>
           </WhapperImagePresentation>
         </ContentImagePresentation>
