@@ -1,28 +1,37 @@
 import { useFormik } from "formik";
-import useRequest from "./use-request";
+import { saveImageInStorage, saveAboutMe } from "../services";
+
+interface FileInputEvent extends Event {
+  target: HTMLInputElement & EventTarget;
+  files: FileList | null;
+}
 
 export default () => {
-  const { Post, isLoading } = useRequest();
-
   const { values, handleChange, handleSubmit, setFieldValue } = useFormik({
     initialValues: {
       image: "",
       aboutMe: "",
     },
-    onSubmit: async (values) => await Post("", values),
+    onSubmit: async (values) =>
+      await saveAboutMe({
+        birth: new Date(),
+        history: values.aboutMe,
+        hometown: "",
+        name: "Uiaran Guilherme Campos de Lima",
+      }),
   });
 
-  const handleSaveImage = async (e: any) => {
-    const image = e.target.files[0];
-    const formData = new FormData();
-    formData.append("imagem", image);
+  const handleSaveImage = async (e: FileInputEvent) => {
+    const image = e.target.files !== null ? e.target.files[0] : null;
 
-    const isSaveImage = await Post("", formData);
+    if (image === null) return;
 
-    if (isSaveImage.isSuccess && isSaveImage.value !== undefined) {
-      setFieldValue("image", isSaveImage.value);
+    const idImage = await saveImageInStorage(image);
+
+    if (idImage !== undefined) {
+      setFieldValue("image", idImage);
     }
   };
 
-  return { values, handleChange, handleSubmit, handleSaveImage, isLoading };
+  return { values, handleChange, handleSubmit, handleSaveImage };
 };
