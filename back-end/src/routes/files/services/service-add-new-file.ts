@@ -1,5 +1,7 @@
 import { Success } from "@infra"
 import { FileRepository } from "@models"
+import env from "dotenv"
+env.config()
 
 export default async (file: Express.Multer.File) => {
   var File = FileRepository.create({
@@ -9,7 +11,7 @@ export default async (file: Express.Multer.File) => {
     filename: file.filename,
     mimetype: file.mimetype,
     originalname: file.originalname,
-    path: file.path,
+    path: `${process.env.HOST}/static/${file.originalname}`,
     size: file.size,
   })
 

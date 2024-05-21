@@ -26,6 +26,11 @@ export const ContainerRickText = styled(Box)({
   height: "100%",
 });
 
+export const ActionsRickText = styled(Box)({
+  display: "flex",
+  justifyContent: "flex-end",
+});
+
 export const WhapperImagePresentation = styled(Box)({
   position: "relative",
   width: "100%",

@@ -1,35 +1,39 @@
 import { useFormik } from "formik";
-import { saveImageInStorage, saveAboutMe } from "../services";
-
-interface FileInputEvent extends Event {
-  target: HTMLInputElement & EventTarget;
-  files: FileList | null;
-}
+import { saveImageInStorage, saveAboutMe, getAboutMe } from "../services";
+import { ChangeEvent } from "react";
+import useRequest from "./use-request";
 
 export default () => {
-  const { values, handleChange, handleSubmit, setFieldValue } = useFormik({
-    initialValues: {
-      image: "",
+  const { data, isLoading } = useRequest({
+    defaultValues: {
       aboutMe: "",
+      image: "",
     },
+    request: getAboutMe,
+  });
+
+  const { values, handleChange, handleSubmit, setFieldValue } = useFormik({
+    initialValues: data,
+    enableReinitialize: true,
     onSubmit: async (values) =>
       await saveAboutMe({
-        birth: new Date(),
+        birth: new Date("04/12/1995"),
         history: values.aboutMe,
-        hometown: "",
+        hometown: "Itajai-SC",
         name: "Uiaran Guilherme Campos de Lima",
+        img: values.image,
       }),
   });
 
-  const handleSaveImage = async (e: FileInputEvent) => {
+  const handleSaveImage = async (e: ChangeEvent<HTMLInputElement>) => {
     const image = e.target.files !== null ? e.target.files[0] : null;
 
     if (image === null) return;
 
-    const idImage = await saveImageInStorage(image);
+    const file = await saveImageInStorage(image);
 
-    if (idImage !== undefined) {
-      setFieldValue("image", idImage);
+    if (file !== undefined) {
+      setFieldValue("image", file.path);
     }
   };
 

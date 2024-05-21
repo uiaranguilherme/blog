@@ -1,4 +1,4 @@
-import { Button, Divider, Pagination, Input } from "@mui/material";
+import { Button, Divider, Pagination } from "@mui/material";
 import {
   WhapperPresentationPage,
   ContainerPresentation,
@@ -17,44 +17,48 @@ import {
   ItemHistory,
   ItemOfficeCompanyDescription,
   ContainerRickText,
+  ActionsRickText,
 } from "./styles";
 import { AddAPhotoTwoTone } from "@mui/icons-material";
 import RichTextMarkdown from "../../../components/rich-text-markdown";
-import { useState } from "react";
 import { ButtonSelectImage } from "../../../components";
+import useAboutMe from "../../../hooks/use-about-me";
 
 export default () => {
-  const texto = "#### Hi, *Pluto*!";
-  const [selectedImage, setSelectedImage] = useState<any>(null);
-
-  const handleImageSelect = (e: any) => {
-    const imageFile = e.target.files[0];
-    setSelectedImage(URL.createObjectURL(imageFile));
-  };
+  const { values, handleSaveImage, handleSubmit, handleChange } = useAboutMe();
 
   return (
     <WhapperPresentationPage>
-      <ContainerPresentation>
-        <ContentImagePresentation>
-          <WhapperImagePresentation>
-            <ImagePresentation
-              src={selectedImage !== null ? selectedImage : "/imgs/foto.jpeg"}
-            />
-            <ContainerOptionsEditImage>
-              <ButtonSelectImage
-                onSelectImage={handleImageSelect}
-                variant="outlined"
-                startIcon={<AddAPhotoTwoTone />}
-              >
-                Editar imagem
-              </ButtonSelectImage>
-            </ContainerOptionsEditImage>
-          </WhapperImagePresentation>
-        </ContentImagePresentation>
-        <ContainerRickText>
-          <RichTextMarkdown handleSave={() => {}}>{texto}</RichTextMarkdown>
-        </ContainerRickText>
-      </ContainerPresentation>
+      <form onSubmit={handleSubmit}>
+        <ContainerPresentation>
+          <ContentImagePresentation>
+            <WhapperImagePresentation>
+              <ImagePresentation
+                src={values.image !== null ? values.image : "/imgs/foto.jpeg"}
+              />
+              <ContainerOptionsEditImage>
+                <ButtonSelectImage
+                  onSelectImage={handleSaveImage}
+                  variant="outlined"
+                  startIcon={<AddAPhotoTwoTone />}
+                >
+                  Editar imagem
+                </ButtonSelectImage>
+              </ContainerOptionsEditImage>
+            </WhapperImagePresentation>
+          </ContentImagePresentation>
+          <ContainerRickText>
+            <RichTextMarkdown id="aboutMe" onChange={handleChange}>
+              {values.aboutMe}
+            </RichTextMarkdown>
+            <ActionsRickText>
+              <Button type="submit" variant="outlined">
+                Salvar
+              </Button>
+            </ActionsRickText>
+          </ContainerRickText>
+        </ContainerPresentation>
+      </form>
       <Divider />
       <ContainerHistoryCompany>
         <HeaderHistoryCompany>

@@ -1,5 +1,5 @@
 /** @format */
 
 import useScrollWindow from "./use-scroll-window";
-
-export { useScrollWindow };
+import useRequest from "./use-request";
+export { useScrollWindow, useRequest };
