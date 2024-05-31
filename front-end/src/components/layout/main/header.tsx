@@ -19,31 +19,32 @@ export default () => {
   var scroll = useScrollWindow();
 
   return (
-    <WhapperHeaderLayoutMain elevation={scroll > 10 ? 1 : 0} position='fixed'>
+    <WhapperHeaderLayoutMain elevation={scroll > 10 ? 1 : 0} position="fixed">
       <ContainerHeaderLayoutMain>
         <When case={window.location.pathname !== "/"}>
-          <a href='/'>
-            <Logo height='60px' width='80px' src='/imgs/logo.svg' />
+          <a href="/">
+            <Logo height="60px" width="80px" src="/imgs/logo.svg" />
           </a>
         </When>
         <When case={window.location.pathname === "/"}>
           <div></div>
         </When>
         <NavHeaderLayoutMain>
-          <NavButton label='1. Sobre Mim' link='/about-me' />
-          <NavButton label='2. Projetos' link='/projects' />
-          <NavButton label='3. Contato' link='/contact-us' />
+          <NavButton label="1. Sobre Mim" link="/about-me" />
+          <NavButton label="2. Projetos" link="/projects" />
+          <NavButton label="3. Contato" link="/contact-us" />
           <NavItemHeaderLayoutMain
-            href='/blog'
+            href="/blog"
             disableElevation
-            variant='contained'>
+            variant="contained"
+          >
             Blog
           </NavItemHeaderLayoutMain>
           <IconButton onClick={changeTheme}>
             {paletteMode !== "light" ? (
-              <LightModeTwoTone color='primary' />
+              <LightModeTwoTone color="primary" />
             ) : (
-              <DarkModeTwoTone color='primary' />
+              <DarkModeTwoTone color="primary" />
             )}
           </IconButton>
         </NavHeaderLayoutMain>

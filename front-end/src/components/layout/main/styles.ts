@@ -32,7 +32,7 @@ export const WhapperHeaderLayoutMain = styled(AppBar)(({ theme }) => ({
   backgroundColor: theme.palette.primary.background,
   padding: "0 10px",
   border: "none",
-  minHeight: "70px",
+  maxHeight: "70px",
 }));
 
 export const ContainerHeaderLayoutMain = styled(Box)({

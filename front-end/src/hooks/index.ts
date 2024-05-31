@@ -2,4 +2,6 @@
 
 import useScrollWindow from "./use-scroll-window";
 import useRequest from "./use-request";
-export { useScrollWindow, useRequest };
+import useAboutMe from "./use-about-me";
+import useJobHistory from "./use-job-history";
+export { useScrollWindow, useRequest, useAboutMe, useJobHistory };

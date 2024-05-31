@@ -1,4 +1,4 @@
-import { Button, Divider, Pagination } from "@mui/material";
+import { Alert, Button, Divider, Pagination } from "@mui/material";
 import {
   WhapperPresentationPage,
   ContainerPresentation,
@@ -21,11 +21,22 @@ import {
 } from "./styles";
 import { AddAPhotoTwoTone } from "@mui/icons-material";
 import RichTextMarkdown from "../../../components/rich-text-markdown";
-import { ButtonSelectImage } from "../../../components";
-import useAboutMe from "../../../hooks/use-about-me";
+import { ButtonSelectImage, When } from "../../../components";
+import { useAboutMe, useJobHistory } from "../../../hooks";
+import ModalOffice from "./modal-office";
 
 export default () => {
   const { values, handleSaveImage, handleSubmit, handleChange } = useAboutMe();
+  const {
+    history,
+    job,
+    modal,
+    handleOpenModal,
+    formatJobInitialValue,
+    handleSaveNewJobHistory,
+  } = useJobHistory();
+
+  console.log("history", history);
 
   return (
     <WhapperPresentationPage>
@@ -62,61 +73,62 @@ export default () => {
       <Divider />
       <ContainerHistoryCompany>
         <HeaderHistoryCompany>
-          <Button disableElevation variant="contained">
+          <Button
+            onClick={handleOpenModal}
+            disableElevation
+            variant="contained"
+          >
             Adicionar novo histórico
           </Button>
         </HeaderHistoryCompany>
-        <ContentHistoryCompany>
-          <ItemHistory>
-            <ItemHistoryDateAboutMe variant="body1" fontWeight="600">
-              {new Date().toLocaleDateString()} -{" "}
-              {new Date().toLocaleDateString()}
-            </ItemHistoryDateAboutMe>
-            <ItemDescriptionAboutMe>
-              <ItemNameCompany variant="h6" fontWeight="600">
-                Squadra
-              </ItemNameCompany>
-              <ItemOfficeCompany
-                color="GrayText"
-                variant="overline"
-                fontWeight="600"
-              >
-                Desenvolvedor Front-End
-              </ItemOfficeCompany>
-              <ItemOfficeCompanyDescription>
-                O trabalho que ocupo na Squadra é de desenvolvedor Full Stack,
-                atuo em novas implementações, como também em manutenções nos
-                projetos da Tim e Oi
-              </ItemOfficeCompanyDescription>
-            </ItemDescriptionAboutMe>
-          </ItemHistory>
-          <ItemHistory>
-            <ItemHistoryDateAboutMe variant="body1" fontWeight="600">
-              {new Date().toLocaleDateString()} - Atual
-            </ItemHistoryDateAboutMe>
-            <ItemDescriptionAboutMe>
-              <ItemNameCompany variant="h6" fontWeight="600">
-                Squadra
-              </ItemNameCompany>
-              <ItemOfficeCompany
-                color="GrayText"
-                variant="overline"
-                fontWeight="600"
-              >
-                Desenvolvedor Front-End
-              </ItemOfficeCompany>
-              <ItemOfficeCompanyDescription>
-                O trabalho que ocupo na Squadra é de desenvolvedor Full Stack,
-                atuo em novas implementações, como também em manutenções nos
-                projetos da Tim e Oi
-              </ItemOfficeCompanyDescription>
-            </ItemDescriptionAboutMe>
-          </ItemHistory>
-        </ContentHistoryCompany>
-        <FooterHistoryCompany>
-          <Pagination count={10} />
-        </FooterHistoryCompany>
+        <When
+          case={Array.isArray(history.companys) && history.companys.length > 0}
+        >
+          <ContentHistoryCompany>
+            {history.companys.map((job, index) => (
+              <ItemHistory key={index}>
+                <ItemHistoryDateAboutMe variant="body1" fontWeight="600">
+                  {new Date(job.when_arrived).toLocaleDateString()} -{" "}
+                  {new Date(job.when_came_out).toLocaleDateString()}
+                </ItemHistoryDateAboutMe>
+                <ItemDescriptionAboutMe>
+                  <ItemNameCompany variant="h6" fontWeight="600">
+                    {job.company}
+                  </ItemNameCompany>
+                  <ItemOfficeCompany
+                    color="GrayText"
+                    variant="overline"
+                    fontWeight="600"
+                  >
+                    {job.office}
+                  </ItemOfficeCompany>
+                  <ItemOfficeCompanyDescription>
+                    {job.office_description}
+                  </ItemOfficeCompanyDescription>
+                </ItemDescriptionAboutMe>
+              </ItemHistory>
+            ))}
+          </ContentHistoryCompany>
+          <FooterHistoryCompany>
+            <Pagination count={history.quantity_items / 10} />
+          </FooterHistoryCompany>
+        </When>
+        <When
+          case={
+            Array.isArray(history.companys) && history.companys.length === 0
+          }
+        >
+          <Alert sx={{ m: "1rem" }} severity="warning">
+            Não foi encotrado histórico
+          </Alert>
+        </When>
       </ContainerHistoryCompany>
+      <ModalOffice
+        initialValues={formatJobInitialValue(job)}
+        open={modal}
+        onClose={handleOpenModal}
+        onSave={handleSaveNewJobHistory}
+      />
     </WhapperPresentationPage>
   );
 };

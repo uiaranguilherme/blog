@@ -1,13 +1,7 @@
 import blog from "./index";
-interface ISaveAboutMe {
-  name: string;
-  history: string;
-  birth: Date;
-  hometown: string;
-  img: string;
-}
+import { IAboutMe } from "./interfaces/iabout-me";
 
-export default async (aboutMe: ISaveAboutMe) => {
+export default async (aboutMe: IAboutMe) => {
   await blog.Post("/about-me", JSON.stringify(aboutMe), {
     headers: {
       "Content-Type": "application/json",
