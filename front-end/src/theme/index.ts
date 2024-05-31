@@ -1,8 +1,8 @@
 /** @format */
 
-import { PaletteMode, createTheme, alpha, lighten } from "@mui/material";
+import { createTheme, alpha, lighten } from "@mui/material";
 import { useContext, useEffect } from "react";
-import { ContextApp } from "../context";
+import { ContextTheme } from "../context/context-theme";
 
 declare module "@mui/material/styles" {
   interface PaletteColor {
@@ -26,7 +26,7 @@ declare module "@mui/material/styles" {
 }
 
 export default () => {
-  const { paletteMode, handleChangeTheme } = useContext(ContextApp);
+  const { paletteMode, handleChangeTheme } = useContext(ContextTheme);
   const theme = createTheme({
     palette: {
       mode: paletteMode,
@@ -127,7 +127,7 @@ export default () => {
             //boxShadow: "none"
           }),
         },
-      }
+      },
     },
   });
 
@@ -141,8 +141,6 @@ export default () => {
   }, []);
 
   const changeTheme = () => {
-    console.log("clicou");
-
     handleChangeTheme(paletteMode === "light" ? "dark" : "light");
   };
 

@@ -1,11 +1,15 @@
 /** @format */
 import { WhapperImage, WhapperLoading, Image } from "./styles";
 
-export default () => {
+interface ILoadingProps {
+  open: boolean;
+}
+
+export default ({ open }: ILoadingProps) => {
   return (
-    <WhapperLoading open={true}>
-      <WhapperImage size='10rem'>
-        <Image src='/imgs/logo.svg' />
+    <WhapperLoading open={open}>
+      <WhapperImage size="10rem">
+        <Image src="/imgs/logo.svg" />
       </WhapperImage>
     </WhapperLoading>
   );

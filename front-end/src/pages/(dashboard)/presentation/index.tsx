@@ -36,8 +36,6 @@ export default () => {
     handleSaveNewJobHistory,
   } = useJobHistory();
 
-  console.log("history", history);
-
   return (
     <WhapperPresentationPage>
       <form onSubmit={handleSubmit}>

@@ -13,9 +13,11 @@ var contextValues: IContextApp = {
   paletteMode: "light",
   handleChangeTheme: () => {},
 };
-export const ContextApp = createContext(contextValues);
+export const ContextTheme = createContext(contextValues);
 
 export default ({ children }: { children: ReactNode }) => {
   const values = initialValues();
-  return <ContextApp.Provider value={values}>{children}</ContextApp.Provider>;
+  return (
+    <ContextTheme.Provider value={values}>{children}</ContextTheme.Provider>
+  );
 };
