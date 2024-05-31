@@ -1,4 +1,5 @@
 import { useCallback, useEffect, useState } from "react";
+import { useLoadingContext } from ".";
 
 interface IUseRequestProps<T> {
   defaultValues: T;
@@ -6,14 +7,14 @@ interface IUseRequestProps<T> {
 }
 
 export default <T>({ defaultValues, request }: IUseRequestProps<T>) => {
+  const { handleChangeLoading, isLoading } = useLoadingContext();
   const [data, setData] = useState<T>(defaultValues);
-  const [isLoading, setIsLoading] = useState<boolean>(false);
 
   const fetch = useCallback(async () => {
-    setIsLoading(true);
+    handleChangeLoading(true);
     const data = await request();
     setData(data);
-    setIsLoading(false);
+    handleChangeLoading(false);
   }, []);
 
   useEffect(() => {

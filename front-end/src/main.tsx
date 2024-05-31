@@ -3,12 +3,15 @@
 import React from "react";
 import ReactDOM from "react-dom/client";
 import App from "./App";
-import ContextApp from "./context";
+import ContextTheme from "./context/context-theme";
+import ContextLoading from "./context/context-loading";
 
 ReactDOM.createRoot(document.getElementById("root")!).render(
   <React.StrictMode>
-    <ContextApp>
-      <App />
-    </ContextApp>
+    <ContextTheme>
+      <ContextLoading>
+        <App />
+      </ContextLoading>
+    </ContextTheme>
   </React.StrictMode>
 );
