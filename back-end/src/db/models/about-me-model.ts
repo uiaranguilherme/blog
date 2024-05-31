@@ -10,6 +10,9 @@ class AboutMeModel implements IAboutMe {
   name: string
 
   @Column()
+  img: string
+
+  @Column()
   history: string
 
   @Column({

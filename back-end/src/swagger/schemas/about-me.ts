@@ -20,5 +20,9 @@ export default CreateSchema({
       type: "string",
       example: "Itajai-SC",
     },
+    img: {
+      type: "string",
+      example: "",
+    },
   },
 })

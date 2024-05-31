@@ -7,12 +7,14 @@ import * as dotenv from "dotenv"
 import { RegisterRoutes } from "@infra"
 import AppDataSource from "@models"
 import { root } from "@constants"
+import cors from "cors"
 dotenv.config()
 
 AppDataSource.initialize()
   .then(() => {
     const app = express()
     app.use(express.json())
+    app.use(cors())
 
     RegisterRoutes(AllRoutes, app)
 

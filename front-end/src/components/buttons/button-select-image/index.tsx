@@ -1,7 +1,8 @@
 import { Button, ButtonProps } from "@mui/material";
+import { ChangeEventHandler } from "react";
 
 interface IButtonSelectImageProps extends ButtonProps {
-  onSelectImage: React.ChangeEventHandler<HTMLInputElement> | undefined;
+  onSelectImage: ChangeEventHandler<HTMLInputElement>;
 }
 
 export default ({ onSelectImage, ...rest }: IButtonSelectImageProps) => {

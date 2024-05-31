@@ -12,12 +12,13 @@ import Mk from "../mk";
 
 interface IRickTextMarckdownProps {
   children: string;
-  handleSave: () => void;
+  onChange: any;
+  id: string;
+  label?: string | undefined;
 }
 
-export default ({ children }: IRickTextMarckdownProps) => {
+export default ({ children, onChange, id, label }: IRickTextMarckdownProps) => {
   const [isPreVisualization, setIsPreVisualization] = useState<boolean>(true);
-  const [value, setValue] = useState<string>(children);
 
   return (
     <WhapperRichTextMarkdown>
@@ -32,25 +33,21 @@ export default ({ children }: IRickTextMarckdownProps) => {
       </HeaderRichTextMarkdown>
       <ContainerRichTextMarkdown>
         <When case={isPreVisualization}>
-          <Mk>{value}</Mk>
+          <Mk>{children}</Mk>
         </When>
         <When case={isPreVisualization === false}>
           <InputTextRich
             fullWidth
-            id="text-edit-rich-text-markdown"
+            label={label ?? label}
+            id={id}
             multiline
             maxRows={13}
             minRows={13}
-            onChange={(e) => setValue(e.target.value)}
-            value={value}
+            onChange={onChange}
+            value={children}
           />
         </When>
       </ContainerRichTextMarkdown>
-      <FooterRichTextMarkdown>
-        <When case={isPreVisualization === false}>
-          <Button variant="outlined">Salvar</Button>
-        </When>
-      </FooterRichTextMarkdown>
     </WhapperRichTextMarkdown>
   );
 };
