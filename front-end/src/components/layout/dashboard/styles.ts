@@ -1,6 +1,7 @@
 import {
   AppBar,
   Box,
+  Button,
   lighten,
   ListItemButton,
   Menu,
@@ -22,6 +23,7 @@ export const ContainerLayoutDashboard = styled(Box)({
 
 export const ContentLayoutDashboard = styled(Box)({
   width: "100%",
+  overflow: "auto",
 });
 
 /** HEADER **/

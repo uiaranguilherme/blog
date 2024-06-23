@@ -13,6 +13,8 @@ const Carousel = lazy(() => import("./carousel"));
 const CarouselItem = lazy(() => import("./carousel/carousel-item"));
 const Markdown = lazy(() => import("./mk"));
 const RichTextMarkdown = lazy(() => import("./rich-text-markdown"));
+const ImageEditor = lazy(() => import("./image-editor"));
+const Stack = lazy(() => import("./stack"));
 
 export {
   Layout,
@@ -26,4 +28,6 @@ export {
   Markdown,
   RichTextMarkdown,
   ButtonSelectImage,
+  ImageEditor,
+  Stack,
 };

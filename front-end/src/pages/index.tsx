@@ -4,7 +4,7 @@ import { lazy } from "react";
 import { createBrowserRouter } from "react-router-dom";
 import { Layout } from "../components";
 import { Newsletters, PostPerName } from "./(blog)";
-import { Board, Login, Presentation } from "./(dashboard)";
+import { Board, Login, Posts, Presentation } from "./(dashboard)";
 
 const ContactUs = lazy(() => import("./contact-us"));
 const Projects = lazy(() => import("./projects"));
@@ -79,14 +79,18 @@ export default createBrowserRouter([
         children: [
           {
             path: "",
-            element: <Board/>
+            element: <Board />,
           },
           {
             path: "presentation",
-            element: <Presentation/>
-          }
-        ]
-      }
+            element: <Presentation />,
+          },
+          {
+            path: "posts",
+            element: <Posts />,
+          },
+        ],
+      },
     ],
   },
 ]);

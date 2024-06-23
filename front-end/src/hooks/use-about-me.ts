@@ -1,6 +1,5 @@
 import { useFormik } from "formik";
-import { saveImageInStorage, saveAboutMe, getAboutMe } from "../services";
-import { ChangeEvent } from "react";
+import { saveAboutMe, getAboutMe } from "../services";
 import useRequest from "./use-request";
 
 export default () => {
@@ -25,17 +24,5 @@ export default () => {
       }),
   });
 
-  const handleSaveImage = async (e: ChangeEvent<HTMLInputElement>) => {
-    const image = e.target.files !== null ? e.target.files[0] : null;
-
-    if (image === null) return;
-
-    const file = await saveImageInStorage(image);
-
-    if (file !== undefined) {
-      setFieldValue("image", file.path);
-    }
-  };
-
-  return { values, handleChange, handleSubmit, handleSaveImage };
+  return { values, setFieldValue, handleChange, handleSubmit };
 };

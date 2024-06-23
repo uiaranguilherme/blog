@@ -15,9 +15,16 @@ interface IRickTextMarckdownProps {
   onChange: any;
   id: string;
   label?: string | undefined;
+  rows: number;
 }
 
-export default ({ children, onChange, id, label }: IRickTextMarckdownProps) => {
+export default ({
+  children,
+  onChange,
+  id,
+  label,
+  rows,
+}: IRickTextMarckdownProps) => {
   const [isPreVisualization, setIsPreVisualization] = useState<boolean>(true);
 
   return (
@@ -41,8 +48,8 @@ export default ({ children, onChange, id, label }: IRickTextMarckdownProps) => {
             label={label ?? label}
             id={id}
             multiline
-            maxRows={13}
-            minRows={13}
+            maxRows={rows}
+            minRows={rows}
             onChange={onChange}
             value={children}
           />
