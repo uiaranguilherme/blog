@@ -13,12 +13,6 @@ export const ContainerPresentation = styled(Box)({
   width: "100%",
 });
 
-export const ContentImagePresentation = styled(Box)({
-  padding: "15px 10px",
-  width: "40%",
-  maxWidth: "30rem",
-});
-
 export const ContainerRickText = styled(Box)({
   padding: "15px 10px",
   width: "60%",
@@ -30,40 +24,6 @@ export const ActionsRickText = styled(Box)({
   display: "flex",
   justifyContent: "flex-end",
 });
-
-export const WhapperImagePresentation = styled(Box)({
-  position: "relative",
-  width: "100%",
-  transition: "all 2s ease-in-out",
-  span: {
-    opacity: 0,
-  },
-
-  "&:hover": {
-    span: {
-      opacity: 1,
-    },
-  },
-});
-
-export const ImagePresentation = styled("img")({
-  width: "100%",
-  height: "100%",
-  borderRadius: "2px",
-  objectFit: "cover",
-});
-
-export const ContainerOptionsEditImage = styled("span")(({ theme }) => ({
-  position: "absolute",
-  display: "flex",
-  alignItems: "center",
-  justifyContent: "center",
-  padding: "0 10px",
-  bottom: "0",
-  height: "3rem",
-  width: "100%",
-  backgroundColor: theme.palette.grey["A100"],
-}));
 
 export const WhapperPresentationText = styled(Box)({
   width: "60%",

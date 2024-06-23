@@ -2,14 +2,10 @@ import { Alert, Button, Divider, Pagination } from "@mui/material";
 import {
   WhapperPresentationPage,
   ContainerPresentation,
-  WhapperImagePresentation,
-  ImagePresentation,
-  ContainerOptionsEditImage,
   ContainerHistoryCompany,
   HeaderHistoryCompany,
   ContentHistoryCompany,
   FooterHistoryCompany,
-  ContentImagePresentation,
   ItemHistoryDateAboutMe,
   ItemNameCompany,
   ItemDescriptionAboutMe,
@@ -19,14 +15,13 @@ import {
   ContainerRickText,
   ActionsRickText,
 } from "./styles";
-import { AddAPhotoTwoTone } from "@mui/icons-material";
 import RichTextMarkdown from "../../../components/rich-text-markdown";
-import { ButtonSelectImage, When } from "../../../components";
+import { ImageEditor, When } from "../../../components";
 import { useAboutMe, useJobHistory } from "../../../hooks";
 import ModalOffice from "./modal-office";
 
 export default () => {
-  const { values, handleSaveImage, handleSubmit, handleChange } = useAboutMe();
+  const { values, handleSubmit, handleChange, setFieldValue } = useAboutMe();
   const {
     history,
     job,
@@ -40,24 +35,12 @@ export default () => {
     <WhapperPresentationPage>
       <form onSubmit={handleSubmit}>
         <ContainerPresentation>
-          <ContentImagePresentation>
-            <WhapperImagePresentation>
-              <ImagePresentation
-                src={values.image !== null ? values.image : "/imgs/foto.jpeg"}
-              />
-              <ContainerOptionsEditImage>
-                <ButtonSelectImage
-                  onSelectImage={handleSaveImage}
-                  variant="outlined"
-                  startIcon={<AddAPhotoTwoTone />}
-                >
-                  Editar imagem
-                </ButtonSelectImage>
-              </ContainerOptionsEditImage>
-            </WhapperImagePresentation>
-          </ContentImagePresentation>
+          <ImageEditor
+            image={values.image}
+            handleSaveImage={(image) => setFieldValue("image", image)}
+          />
           <ContainerRickText>
-            <RichTextMarkdown id="aboutMe" onChange={handleChange}>
+            <RichTextMarkdown rows={13} id="aboutMe" onChange={handleChange}>
               {values.aboutMe}
             </RichTextMarkdown>
             <ActionsRickText>

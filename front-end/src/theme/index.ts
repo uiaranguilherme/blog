@@ -124,7 +124,8 @@ export default () => {
         styleOverrides: {
           root: ({ theme, ownerState }) => ({
             border: `1px solid ${theme.palette.primary.contrastText}`,
-            //boxShadow: "none"
+            overflow: "hidden",
+            //boxShadow: "none",
           }),
         },
       },
