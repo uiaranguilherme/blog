@@ -16,5 +16,5 @@ export const ModalMenuAddPostActions = styled(Box)({
 
 export const ModalContentAddNewPost = styled(Box)({
   padding: "1rem",
-  overflow: "hidden",
+  overflow: "auto",
 });

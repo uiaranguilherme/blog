@@ -6,9 +6,9 @@ export const ModalTitle = styled(DialogTitle)({
 
 export const WhapperModalInfoPost = styled(Grid)({
   width: "100%",
-  height: "400px",
+  //height: "400px",
   padding: "10px",
-  overflow: "auto",
+  //overflow: "auto",
   margin: "0px",
 });
 
