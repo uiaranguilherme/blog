@@ -18,7 +18,7 @@ interface ModalInfoPost {
 
 export default ({ initialValues }: ModalInfoPost) => {
   return (
-    <Dialog maxWidth="md" fullWidth open={true} onClose={() => {}}>
+    <Dialog maxWidth="md" fullWidth open={false} onClose={() => {}}>
       <ModalTitle>Informações da Postagem:</ModalTitle>
       <Divider />
       <Formik initialValues={initialValues} onSubmit={() => {}}>
